@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Famos</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+   
+   <script type="text/javascript">
+        function zahlwort(zahl) {
+  var sonderzahlen = [];
+  sonderzahlen[11] = "elf";
+  sonderzahlen[12] = "zwölf";
+  sonderzahlen[16] = "sechzehn";
+  sonderzahlen[17] = "siebzehn";
+
+  var zahlen = [];
+  zahlen[1] = "ein";
+  zahlen[2] = "zwei";
+  zahlen[3] = "drei";
+  zahlen[4] = "vier";
+  zahlen[5] = "fünf";
+  zahlen[6] = "sechs";
+  zahlen[7] = "sieben";
+  zahlen[8] = "acht";
+  zahlen[9] = "neun";
+  zahlen[10] = "zehn";
+  zahlen[20] = "zwanzig";
+  zahlen[30] = "dreißig";
+  zahlen[40] = "vierzig";
+  zahlen[50] = "fünfzig";
+  zahlen[60] = "sechzig";
+  zahlen[70] = "siebzig";
+  zahlen[80] = "achtzig";
+  zahlen[90] = "neunzig";
+
+  var einheiten = ["", "tausend", "Million", "Milliarde", "Billion"];
+  var trennschritte = 1000;
+  var zahlinworten = "";
+
+  if (zahl == 0) zahlinworten = "null";
+  for (var i = 0; i < Math.ceil(zahl.length / 3); i++) {
+    if (i > einheiten.length - 1) return "Zahl nicht unterstützt";
+    if (i == 0) zahlenblock = zahl % trennschritte;
+    else
+      zahlenblock =
+        ((zahl % trennschritte) - (zahl % (trennschritte / 1000))) /
+        (trennschritte / 1000);
+    einer = zahlenblock % 10;
+    zehn = zahlenblock % 100;
+    hunderter = (zahlenblock - (zahlenblock % 100)) / 100;
+    einheitenendung = einheiten[i].substr(einheiten[i].length - 1, 1);
+
+    if (zahlenblock > 0) {
+      if (zahlenblock > 1 && einheitenendung == "n")
+        zahlinworten = " " + einheiten[i] + "en " + zahlinworten;
+      else if (zahlenblock > 1 && einheitenendung == "e")
+        zahlinworten = " " + einheiten[i] + "n " + zahlinworten;
+      else if (zahlenblock > 0 && i == 1)
+        zahlinworten = einheiten[i] + zahlinworten;
+      else zahlinworten = " " + einheiten[i] + " " + zahlinworten;
+    }
+
+    if (zehn > 0) {
+      if (zehn == 1 && i == 0) zahlinworten = "eins" + zahlinworten;
+      else if (zehn == 1 && i == 1) zahlinworten = "ein" + zahlinworten;
+      else if (zehn == 1 && i > 1) zahlinworten = "eine" + zahlinworten;
+      else if (sonderzahlen[zehn])
+        zahlinworten = sonderzahlen[zehn] + zahlinworten;
+      else {
+        if (zehn > 9) zahlinworten = zahlen[zehn - einer] + zahlinworten;
+        if (zehn > 20 && einer > 0) zahlinworten = "und" + zahlinworten;
+        if (einer > 0) zahlinworten = zahlen[einer] + zahlinworten;
+      }
+    }
+
+    if (hunderter > 0)
+      zahlinworten = zahlen[hunderter] + "hundert" + zahlinworten;
+
+    trennschritte *= 1000;
+  }
+  return zahlinworten;
+}
+    </script>
+
+    <style>
+      ul {
+      padding: 0;
+      margin: 30px 20px;
+      list-style: none;
+      }
+      ul li {
+      margin: 5px;
+      display: inline-block;
+      padding: 5px;
+      border: 1px solid #ffffff;
+      }
+      ul li  img {
+      width: 125px;
+      height: 125px;
+      display: block;
+      }
+      ul li:hover img {
+      transform: scale(1.3);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      }
+
+        body {
+            font-family: "Open Sans", sans-serif;
+            background-color: #ffffff;
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+
+        .header-image {
+            width: 600px;
+            height: 300px;
+            object-fit: cover;
+            object-position: 50% 15%;
+            display: block;
+            border-radius: 25px;
+        }
+        
+        a.one:hover {
+            font-size: 120%
+        }
+
+        .headline {
+            color: #831D17;
+            flex: 1;
+        }
+
+        image-container {
+            background-color: white;
+            padding: 16px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        a {
+            color: #ac2828;
+            text-decoration: none;
+            margin-left: 16px;
+            font-weight: 700;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .text-highlight {
+            color:#ffff00;
+            font-size: 47px;
+        }
+
+        .text-container {
+            background-color: #DEDEDE;
+            padding: 8px;
+            color:#484846;
+            font-weight: 600;
+        }
+
+        .maps-container {
+            margin-top: 16px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .maps-right {
+            margin-left: 16px;
+            width: 30%;
+        }
+
+        .maps-frame {
+            border: 0;
+            height: 350px;
+            width: 70%;
+        }
+
+        .legal-content {
+            padding: 8px;
+        }
+
+        .legal-text {
+            margin-right: 16px;
+        }
+    </style>
+    <script>
+            function test() {
+        var zahl = document.getElementById("Zahl").value;
+        document.getElementById("Zahl_in_Worten").innerHTML = zahlwort(zahl);
+      }
+    </script>
+<div><input type="text" id="Zahl" autocomplete="off" onkeyup='test();'></div>
+<div id="Zahl_in_Worten"></div>
+</head>
+<body>
+    <div class="navbar">
+        <h1 class="headline">
+            Famos<br><font color="#a9a9a9"><span class="text-hightlight">Website</span></font>
+        </h1>
+
+        <div>
+            <a href="http://stwaren.de/123/234/Html%20und%20CSS/infos.html#">Infos</a>
+            <a href="http://stwaren.de/123/234/Html%20und%20CSS/preise.html#">Preise</a>
+            <a href="http://stwaren.de/123/234/Html%20und%20CSS/termine.html#">Termine</a>
+            <a href="#standort">Standort</a>
+        </div>
+    </div>
+
+<iframe src="https://www.ixq.de/uhrzeit/weiss.php" width="90" height="40" frameborder="0" border="0"></iframe>
+
+
+
+
+    <div class="image-container">
+        <ul>
+            <ul>
+                <li>
+                    <a href="http://stwaren.de/123/234/Html%20und%20CSS/Flugzeugtr%C3%A4ger.jpg"><img class="header-image" src="Flugzeugträger.jpg"></a>
+                </li>
+        </ul>
+
+        </script>
+
+        <div class="text-container">
+            Individuell
+        </div>
+
+        <div class="maps-container">
+            <section id="standort">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4197.153682408481!2d7.287298186169244!3d51.28089920806719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b928af1c721269%3A0xe11db9e21eb67e22!2sM%C3%A4rkisches%20Gymnasium%20Schwelm!5e0!3m2!1sde!2sde!4v1652534035413!5m2!1sde!2sde" 
+            width="1000" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></section>
+            <div class="text-container maps-right">
+                Eine professionelle Website ist der Schlüssel zum Erfolg im ersten Job.
+            </div>
+        </div>
+    </div>
+
+    <div class="legal-content">
+        <span class="legal-text">(c) 2022 - Cool Company GmbH</span> | <a href="http://stwaren.de/123/234/Html%20und%20CSS/impressum.html#m42">Impressum</a> | <a href="http://stwaren.de/123/234/Html%20und%20CSS/datenschutz.html#m42">Datenschutz</a>
+    </div>
+
+
+
+</body>
+</html>
